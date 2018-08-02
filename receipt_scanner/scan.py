@@ -27,6 +27,12 @@ cnts = cv2.findContours(edged.copy(), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 cnts = cnts[0] if imutils.is_cv2() else cnts[1]
 cnts = sorted(cnts, key = cv2.contourArea, reverse = True)[:5]
 
+print("STEP 1: Edge Detection")
+cv2.imshow("Image", image)
+cv2.imshow("Edged", edged)
+cv2.waitKey(10000)
+cv2.destroyAllWindows()
+
 #loop over largest contours, pick largest contour with 4 points
 for c in cnts:
 	# approximate the contour
@@ -38,6 +44,12 @@ for c in cnts:
 	if len(approx) == 4:
 		screenCnt = approx
 		break
+
+print("STEP 2: Find contours of paper")
+cv2.drawContours(image, [screenCnt], -1, (0, 255, 0), 2)
+cv2.imshow("Outline", image)
+cv2.waitKey(10000)
+cv2.destroyAllWindows()
 
 #top-down transform, convert to grayscale and threshold it
 warped = four_point_transform(orig, screenCnt.reshape(4, 2) * ratio)
@@ -51,5 +63,5 @@ print("RESULTS:")
 cv2.imshow("Original", imutils.resize(orig, height = 650))
 cv2.imshow("Scanned", warped)
 cv2.imwrite("/Users/jasonzhao/Downloads/pic_example.jpg", warped)
-cv2.waitKey(0) 
+cv2.waitKey(10000) 
 

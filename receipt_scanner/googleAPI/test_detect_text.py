@@ -5,7 +5,6 @@ from google.cloud import vision
 from google.cloud.vision import types
 
 def detect_text(path):
-    """Detects text in the file."""
     client = vision.ImageAnnotatorClient()
 
     with io.open(path, 'rb') as image_file:
@@ -18,4 +17,4 @@ def detect_text(path):
     print('\n"{}"'.format(texts[0].description))
 
 if __name__ == "__main__":
-    detect_text("/Users/jasonzhao/Documents/GitHub/ShopScan/receipt_scanner/images/receipt.jpg")
+    detect_text("/Users/jasonzhao/Documents/GitHub/ShopScan/receipt_scanner/images/test4.JPG")
